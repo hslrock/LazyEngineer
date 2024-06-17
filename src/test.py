@@ -54,3 +54,5 @@ response = generator.generate(prompt)
 print(response.text)
 
 # feat: Add "world" to string
+
+manager.commit_with_message(response.text)
