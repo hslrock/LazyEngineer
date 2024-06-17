@@ -3,3 +3,5 @@ git_auto_post.egg-info/*
 build/*
 poetry.lock
 .env
+*.pyc
+.envrc
