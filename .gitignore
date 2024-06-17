@@ -1,0 +1,4 @@
+dist/*
+git_auto_post.egg-info/*
+build/*
+poetry.lock
