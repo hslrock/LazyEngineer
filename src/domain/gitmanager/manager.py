@@ -1,4 +1,5 @@
 import git
+from git.exc import GitCommandError
 
 
 class GitManager:
@@ -13,8 +14,11 @@ class GitManager:
 
     def commit_with_message(self, commit_message):
         """Commit the staged changes with the provided commit message."""
-        if self.repo.is_dirty(untracked_files=True):
-            self.repo.index.commit(commit_message)
-            print(f"Committed with message: {commit_message}")
-        else:
-            print("No changes to commit.")
+        try:
+            if self.repo.is_dirty(untracked_files=True):
+                self.repo.index.commit(commit_message)
+                print(f"Committed with message: {commit_message}")
+            else:
+                print("No changes to commit.")
+        except GitCommandError as e:
+            print(f"Error during commit: {e}")
