@@ -1,9 +1,17 @@
+import os
+
 from domain.generation.api.gemini import GeminiGenerator
+from domain.gitmanager.manager import GitManager
 from domain.renderer.renderer import JinjaTemplateRenderer
 from settings import load_settings
 
+repo_path = os.getcwd()
+manager = GitManager(repo_path)
+diff_text = manager.get_staged_diff()
+
+
 renderer = JinjaTemplateRenderer(template_name="v1.jinja2", asset_path="commit")
-prompt = renderer.render(diff="hello -> hello world")
+prompt = renderer.render(diff=diff_text)
 print(prompt)
 
 # Generate a SINGLE GIT commit-message. Follow next set of rules:
@@ -46,3 +54,5 @@ response = generator.generate(prompt)
 print(response.text)
 
 # feat: Add "world" to string
+
+manager.commit_with_message(response.text)
