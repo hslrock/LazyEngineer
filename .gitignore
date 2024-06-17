@@ -5,4 +5,4 @@ poetry.lock
 .env
 *.pyc
 .envrc
-
+src/lazyengineer.egg-info/*
